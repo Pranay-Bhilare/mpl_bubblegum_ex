@@ -1,0 +1,23 @@
+# Rust build artifacts
+/target/
+**/target/
+**/*.rs.bk
+
+# Elixir/Erlang build artifacts
+/_build/
+/deps/
+/.elixir_ls/
+
+# Generated NIF libraries
+/priv/native/
+!/priv/native/.gitkeep
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db
