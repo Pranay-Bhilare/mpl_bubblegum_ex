@@ -3,6 +3,7 @@ use solana_sdk::pubkey::Pubkey;
 use solana_sdk::signer::keypair::Keypair;  
 use std::str::FromStr;  
 mod create_tree;
+mod valid_depth_size_pairs;
 use create_tree::*;
 
 #[rustler::nif]  
