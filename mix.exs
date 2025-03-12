@@ -4,7 +4,7 @@ defmodule MplBubblegumEx.MixProject do
   def project do
     [
       app: :mpl_bubblegum_ex,
-      version: "0.1.0",
+        version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -20,9 +20,10 @@ defmodule MplBubblegumEx.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.36.1"},
-
+      {:base58, "~> 0.1.1"},
+      {:httpoison, "~> 2.2"},
       {:jason, "~> 1.4"},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.37.3", only: :dev, runtime: false}
     ]
   end
 

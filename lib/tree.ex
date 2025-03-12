@@ -1,21 +1,20 @@
-defmodule MplBubblegumEx.TreeOptions do
-  @moduledoc """
-  Options for tree configuration.
-  """
-  defstruct [
-    public: nil,
-    log_wrapper: nil,
-    compression_program: nil,
-    system_program: nil
-  ]
-end
+# defmodule MplBubblegumEx.TreeOptions do
+#   @moduledoc """
+#   Options for tree configuration.
+#   """
+# #   defstruct [
+# #     public: nil,
+# #     log_wrapper: nil,
+# #     compression_program: nil,
+# #     system_program: nil
+# #   ]
+# end
 
 defmodule MplBubblegumEx.Tree do
   @moduledoc """
   Functions for creating and managing compressed NFT Merkle Trees.
   """
   alias MplBubblegumEx.Native
-  alias MplBubblegumEx.TreeOptions
 
   @doc """
   Creates a new Merkle Tree configuration on Solana.
@@ -39,36 +38,27 @@ defmodule MplBubblegumEx.Tree do
     max_depth,
     max_buffer_size,
     payer_keypair,
-    merkle_tree_pubkey,
-    rpc_url,
-    options \\ %{}
+    merkle_tree_keypair,
+    rpc_url
   ) do
-    # Convert options to struct
-    options = case options do
-      opts when is_list(opts) -> struct(TreeOptions, opts)
-      %TreeOptions{} = opts -> opts
-      _ when is_map(options) -> struct(TreeOptions, options)
-      _ -> %TreeOptions{}
-    end
 
     # Validate inputs before calling Rust function
-    with {:ok, _} <- validate_pubkey(merkle_tree_pubkey),
+    with {:ok, _} <- validate_keypair(merkle_tree_keypair),
          {:ok, _} <- validate_keypair(payer_keypair)
     do
       Native.create_tree_config_tx(
         max_depth,
         max_buffer_size,
         payer_keypair,
-        merkle_tree_pubkey,
-        rpc_url,
-        options
+        merkle_tree_keypair,
+        rpc_url
       )
     else
       error -> error
     end
   end
   defp validate_pubkey(pubkey) do
-    if Native.validate_pubkey(pubkey),
+    if Native.validate_pubkey_nif(pubkey),
       do: {:ok, pubkey},
       else: {:error, "Invalid pubkey: #{pubkey}"}
   end
