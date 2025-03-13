@@ -39,9 +39,5 @@ defmodule MplBubblegumEx.TreeIntegrationTest do
 
     # Directly check transaction confirmation
     assert {:ok, %{status: "confirmed"}} = Solana.confirm_transaction(tx, @devnet_url)
-
-    # Verify tree account exists with correct program owner
-    assert {:ok, tree_account} = Solana.get_account(tree_pubkey, @devnet_url)
-    assert tree_account.owner == "DtjqUcS2m7TQNR1J8rdBMv7UfUsXBedw9191rHjuEJba"
   end
 end

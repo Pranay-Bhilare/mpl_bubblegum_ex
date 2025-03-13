@@ -82,7 +82,6 @@ fn create_tree_with_const<const MAX_DEPTH: usize, const MAX_BUFFER_SIZE: usize>(
             recent_blockhash,
         );
 
-        // Serialize
         let signature = rpc_client.send_and_confirm_transaction(&transaction)
         .map_err(|_| rustler::Error::Term(Box::new(rpc_error())))?;
 

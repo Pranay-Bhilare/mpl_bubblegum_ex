@@ -31,6 +31,7 @@ use std::str::FromStr;
 mod create_tree;
 mod valid_depth_size_pairs;
 mod metadata;
+mod mint;
 
 #[rustler::nif]
 pub fn validate_pubkey_nif(pubkey_str: &str) -> bool {
@@ -45,5 +46,7 @@ pub fn validate_keypair_nif(keypair_bytes: Vec<u8>) -> bool {
 rustler::init!("Elixir.MplBubblegumEx.Native", [
     validate_pubkey_nif,
     validate_keypair_nif,
-    create_tree::create_tree_config_tx
+    create_tree::create_tree_config_tx,
+    mint::mint_compressed_nft_tx,
+    mint::mint_to_collection_tx
 ]);
