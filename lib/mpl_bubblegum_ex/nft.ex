@@ -93,6 +93,56 @@ defmodule MplBubblegumEx.NFT do
     end
   end
 
+   @doc """
+  Transfers a compressed NFT to a new owner.
+
+  ## Parameters
+    - `tree_keypair`: Keypair of the merkle tree (binary format)
+    - `leaf_owner_keypair`: Keypair of the current owner (binary format)
+    - `new_leaf_owner_pubkey`: Public key of the new owner (string)
+    - `asset_id`: Asset ID of the NFT (string)
+    - `options`: Optional parameters (root, data_hash, creator_hash, nonce, index)
+    - `rpc_url`: Solana RPC URL
+
+  ## Returns
+    - `{:ok, signature}` on success
+    - `{:error, reason}` on failure
+  """
+  def transfer(
+    tree_keypair,
+    leaf_owner_keypair,
+    new_leaf_owner_pubkey,
+    asset_id,
+    options \\ %{},
+    rpc_url
+  ) do
+    with {:ok, _} <- validate_keypair(tree_keypair),
+         {:ok, _} <- validate_keypair(leaf_owner_keypair),
+         {:ok, _} <- validate_pubkey(new_leaf_owner_pubkey),
+         {:ok, _} <- validate_pubkey(asset_id) do
+
+      root = Map.get(options, :root)
+      data_hash = Map.get(options, :data_hash)
+      creator_hash = Map.get(options, :creator_hash)
+      nonce = Map.get(options, :nonce)
+      index = Map.get(options, :index)
+
+      Native.transfer_compressed_nft(
+        tree_keypair,
+        leaf_owner_keypair,
+        new_leaf_owner_pubkey,
+        asset_id,
+        root,
+        data_hash,
+        creator_hash,
+        nonce,
+        index,
+        rpc_url
+      )
+    else
+      error -> error
+    end
+  end
 
   defp validate_pubkey(pubkey) do
     if Native.validate_pubkey_nif(pubkey),

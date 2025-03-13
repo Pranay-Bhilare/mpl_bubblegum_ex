@@ -13,4 +13,6 @@ defmodule MplBubblegumEx.Native do
     do: :erlang.nif_error(:nif_not_loaded)
   def mint_to_collection_tx(_tree_pubkey, _leaf_owner_pubkey, _payer_keypair, _metadata,_collection_mint, _collection_authority, _collection_authority_record_pda, _rpc_url),
     do: :erlang.nif_error(:nif_not_loaded)
+  def transfer_compressed_nft(_tree_keypair, _leaf_owner_keypair, _new_leaf_owner_pubkey, _asset_id,_root, _data_hash, _creator_hash, _nonce, _index, _rpc_url),
+    do: :erlang.nif_error(:nif_not_loaded)
 end
