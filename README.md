@@ -92,7 +92,7 @@ For confirming the tests the easiest way is to use Xray Xplorer :
 2. Connect to Devnet using the network dropdown
 3. Search for your tree address (the merkle_tree_pubkey associatwed with your merkle_tree keypair that you used)
 4. You'll see all assets in that tree including your newly minted NFT
-![Compressed NFT Verification](Screenshot_2025-03-13_150643.png)
+![Compressed NFT Verification](https://ibb.co/4BKK64f)
 5. Click on the NFT to see all its metadata details
 
 
